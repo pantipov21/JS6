@@ -12,6 +12,10 @@ function showMenu(menuItem){
 	menuItem.className = openedMenu;
 }
 
+function isMenuShown(menuItem){
+	return menuItem.className.includes(' menu_active');
+}
+
 Array.from(document.getElementsByClassName('menu__link')).forEach(elem =>{
 	elem.onclick = () => {
 		// 1. Найти предка
@@ -22,8 +26,12 @@ Array.from(document.getElementsByClassName('menu__link')).forEach(elem =>{
 
 		// 3. Если оно есть, то показать только одно подменю
 		if (el != null){
+			let flag = 	isMenuShown(el);
 			hideAllMenus();//спрятать все подменю
-			showMenu(el);// показать текущее подменю
+			if (flag == false){
+				showMenu(el);// показать текущее подменю
+						// Если же оно уже было показано, то спрятать его.
+			}
 			return false;//отключение обработчика по умолчанию
 		}
 	}
